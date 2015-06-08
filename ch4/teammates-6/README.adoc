@@ -1,0 +1,28 @@
+== Docker
+
+If you want the easy way of running this project simply assemble the microservice with `gradlew clean assemble` followed by the Docker instructions below. You will need Docker installed, so please follow the instructions for your OS. Instructions can be found, https://docs.docker.com/installation/#installation[here].
+
+==== Start a mongodb container
+
+[source]
+----
+docker run -d --name sb-mongo mongo
+----
+
+==== Build the service image
+
+[source]
+-----
+docker build -t sb-svc .
+-----
+
+==== Start sb-svc container linked to sb-mongo container
+
+[source]
+----
+docker run -d -p 8080:8080 --link sb-mongo:mongo --name sb-svc sb-svc
+----
+
+== Docker Compose
+
+For the easiest build install https://docs.docker.com/compose/#compose-documentation[Docker Compose]. Then, from the command line run `docker-compose build`, followed by `docker-compose up -d`.
